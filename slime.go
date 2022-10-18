@@ -52,7 +52,6 @@ func main() {
 		rand.Seed(i)
 		i += 1
 		diffuse(frameOne, DIFFUSE_RATE)
-		//evaporate(frameOne, EVAPORATION_RATE)
 		updateAgents(agents, frameOne)
 		renderAgentsToFrame(agents, frameOne)
 		for i := 0; i < len(frameOne); i++ {
@@ -69,17 +68,6 @@ func main() {
 				running = false
 				break
 			}
-		}
-	}
-}
-
-func evaporate(frame []uint8, evaporationRate uint8) {
-	for i := 0; i < len(frame); i++ {
-		newValue := frame[i] - evaporationRate
-		if newValue > frame[i] {
-			frame[i] = 0
-		} else {
-			frame[i] = newValue
 		}
 	}
 }
