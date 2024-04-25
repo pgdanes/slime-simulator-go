@@ -7,8 +7,8 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
-const WIDTH = 1200
-const HEIGHT = 700
+const WIDTH = 400
+const HEIGHT = 400
 const AGENTS = 10000
 const MOVE_SPEED = 1
 const SENSE_ANGLE = math.Pi / 8
@@ -43,13 +43,14 @@ func main() {
 	surface.FillRect(nil, 0)
 	frameOne := make([]uint8, WIDTH*HEIGHT)
 	agents := make([]agent, AGENTS)
-	rand.Seed(0)
 	initRandomAgents(agents)
 
 	running := true
 	var i int64 = 0
+
+	// get current time
+	var time = sdl.GetTicks64()
 	for running {
-		rand.Seed(i)
 		i += 1
 		diffuse(frameOne, DIFFUSE_RATE)
 		updateAgents(agents, frameOne)
@@ -69,6 +70,10 @@ func main() {
 				break
 			}
 		}
+
+		var newTime = sdl.GetTicks64()
+		print("FPS: ", 1000/(newTime-time), "\r")
+		time = newTime
 	}
 }
 
